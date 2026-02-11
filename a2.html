@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EcoSen — Карта (Мобильная)</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      padding: 15px 0;
+      display: flex;
+      justify-content: center;
+      background: white;
+    }
+
+    .header-section {
+      width: 95%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .menu {
+      display: flex;
+      gap: 12px;
+    }
+
+    .menu a {
+      color: #111;
+      text-decoration: none;
+    }
+
+    .menu-text {
+      font-size: 14px;
+    }
+
+    .map-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 15px 0;
+      flex-grow: 1;
+    }
+
+    #map {
+      width: 95%;
+      height: 65vh;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .footer { background: #222; color: #fff; padding: 20px; text-align: center; font-size: 13px; }
+    .footer a { color: #4caf50; margin: 0 6px; }
+    .footer a:hover { text-decoration: underline; }nt-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-section">
+      <div class="logo">EcoSen</div>
+      <div class="menu">
+        <a href="a/a.html"><div class="menu-text">Сұрыптау</div></a>
+          <a href="#"><div class="menu-text">Карта</div></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-wrapper">
+    <div id="map"></div>
+  </div>
+
+  <footer class="footer">
+      <p>© 2025 EcoSen. Барлық құқықтар қорғалған.</p>
+      <p>Ақтау, Қазақстан | info@ecosen.kz | +7 (700) 123-45-67</p>
+      <p>Біз әлеуметтік желілердеміз: <a href="#">Instagram</a> | <a href="https://www.youtube.com/@ecosen">YouTube</a></p>
+    </footer>
+
+<script>
+const map = L.map('map').setView([43.65, 51.17], 12);
+
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+  attribution: '&copy; Esri'
+}).addTo(map);
+
+L.control.scale().addTo(map);
+
+const greenZones = [
+  { name: "Ботаникалық бақ", c: [43.6506, 51.1609] },
+  { name: "14 мкр сквері", c: [43.654606, 51.144531] }
+];
+
+greenZones.forEach(z => {
+  L.circle(z.c, { radius: 250, color: '#2e7d32', fillColor: '#66bb6a', fillOpacity: 0.6 })
+   .addTo(map).bindPopup(`<b>${z.name}</b><br>Жасыл аумақ`);
+});
+</script>
+
+</body>
+</html>
